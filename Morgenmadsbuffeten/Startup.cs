@@ -58,6 +58,7 @@ namespace Morgenmadsbuffeten
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //Insignificant change
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
