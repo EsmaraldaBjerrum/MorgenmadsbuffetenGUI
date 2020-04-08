@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .button {
+        width: 6em;
+        border: 2px solid black;
+        background: #ffe;
+        border-radius: 5px;
+    }
+
+    a {
+        display: block;
+        width: 100%;
+        line-height: 2em;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    #logInButton {
+        float: right;
+        width: 6em;
+        border: 2px solid black;
+        background: #ffe;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Choose your room </h1>
+</div>
+
+<br/>
+<br/>
+
+<div class="container">
+<div class="row">
+    <div class="col-md-4">
+        <h2>Kitchen</h2>
+        <p>
+            <br/>
+            <br/>
+            <a asp-controller="Home" asp-action="KitchenPage">Go to kitchen page</a>
+        </p>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Reception</h2>
+        <p>
+            You need to log-in before you kan enter the reception page
+            <a asp-controller="Home" asp-action="LogInPage">Go to log-in page</a>
+        </p>
+    </div>
+        
+    <div class="col-md-4">
+        <h2>Restaurant</h2>
+        <p>
+            You need to log-in before you kan enter the restaurant page
+            <a asp-controller="Home" asp-action="LogInPage">Go to log-in page</a>
+        </p>
+    </div>
+</div>
+</div>
