@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Morgenmadsbuffeten.Models;
 
 namespace Morgenmadsbuffeten.Data
 {
@@ -12,5 +10,6 @@ namespace Morgenmadsbuffeten.Data
             : base(options)
         {
         }
+        public DbSet<BreakfastOrder> BreakfastOrders { get; set; }
     }
 }
