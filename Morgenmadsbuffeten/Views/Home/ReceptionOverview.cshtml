@@ -3,34 +3,49 @@
     ViewData["Title"] = "Reception Overview";
 }
 
-    <div>
-        <header>
-            <h1>Overview over guests who have eaten breakfast today</h1>
-        </header>
-        <nav>
-            <ul>
-                <li><a href="/Home/ReceptionAddGuests">Add Guests</a></li>
-                <li><a href="/Home/ReceptionOverview">Overview</a></li>
-            </ul>
-        </nav>
-        <div>
-            <table>
-                <tr>
-                    <th>Room</th>
-                    <th>Adults</th>
-                    <th>Children</th>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                </tr>
-            </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"> </div>
+            <div class="col-md-6">
+                <header>
+                    <h1>Overview</h1>
+                </header>
+            </div>
+            <div class="col-md-2"> </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-2">
+                <nav>
+                    <ul>
+                        <li><a href="/Home/ReceptionOverview">Overview</a></li>
+                        <li><a href="/Home/ReceptionAddGuests">Add Guests</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <table>
+                        <tr>
+                            <th width="100">Room</th>
+                            <th width="100">Adults</th>
+                            <th width="100">Children</th>
+                        </tr>
+                        <tr>
+                            <td>number</td>
+                            <td>number</td>
+                            <td>number</td>
+                        </tr>
+                        <tr>
+                            <td>number</td>
+                            <td>number</td>
+                            <td>number</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <p>DD/MM/YYYY</p>
+            </div>
         </div>
     </div>
-
