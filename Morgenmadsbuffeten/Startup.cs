@@ -28,12 +28,23 @@ namespace Morgenmadsbuffeten
              .AddEntityFrameworkStores<ApplicationDbContext>();
          services.AddControllersWithViews();
          services.AddRazorPages();
-      }
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "IsReception",
+                    policyBuilder => policyBuilder
+                     .RequireClaim("Reception"));
+            });
+        }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-      public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+      public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager)
       {
-         if (env.IsDevelopment())
+            DatabaseHelper dbHelper = new DatabaseHelper();
+            dbHelper.CreateReceptionUser(userManager);
+
+            if (env.IsDevelopment())
          {
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
@@ -61,6 +72,7 @@ namespace Morgenmadsbuffeten
             endpoints.MapRazorPages();
 
          });
-      }
+            
+        }
    }
 }

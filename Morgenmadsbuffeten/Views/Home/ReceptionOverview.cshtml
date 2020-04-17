@@ -1,19 +1,12 @@
-﻿
+﻿@model IEnumerable<Morgenmadsbuffeten.Models.BreakfastOrder>
 @{
     ViewData["Title"] = "Reception Overview";
 }
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-2"> </div>
-            <div class="col-md-6">
-                <header>
-                    <h1>Overview</h1>
-                </header>
-            </div>
-            <div class="col-md-2"> </div>
-        </div>
-        <br/>
+        <header >
+            <h1>Overview</h1>
+        </header>
         <div class="row">
             <div class="col-md-2">
                 <nav>
@@ -23,29 +16,37 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" >
                 <div>
                     <table>
+
                         <tr>
                             <th width="100">Room</th>
                             <th width="100">Adults</th>
                             <th width="100">Children</th>
                         </tr>
-                        <tr>
-                            <td>number</td>
-                            <td>number</td>
-                            <td>number</td>
-                        </tr>
-                        <tr>
-                            <td>number</td>
-                            <td>number</td>
-                            <td>number</td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            @if (item.Date == DateTime.Now.Date)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => item.RoomNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Adults)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Children)
+                                    </td>
+                                </tr>
+                            }
+                        }
                     </table>
                 </div>
             </div>
             <div class="col-md-2">
-                <p>DD/MM/YYYY</p>
+                <p>@DateTime.Now.Date.ToShortDateString()</p>
             </div>
         </div>
     </div>

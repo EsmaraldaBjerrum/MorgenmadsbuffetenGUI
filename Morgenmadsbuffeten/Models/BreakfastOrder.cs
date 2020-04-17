@@ -8,16 +8,17 @@ namespace Morgenmadsbuffeten.Models
 {
     public class BreakfastOrder
     {
-        public long BreakfastOrderId { get; set; }
+        [Required]        
+        public string BreakfastOrderId {get { return BreakfastOrderId; } set { BreakfastOrderId = Date.Date.ToOADate().ToString() + RoomNumber; } }
         [Required]
         public long RoomNumber { get; set; }
         [Required]
         public DateTime Date { get; set; }
-        [Required]
-        public int Adults { get; set; }
-        public int CheckedInAdults { get; set; }
-        [Required]
-        public int Children { get; set; }
-        public int CheckedInChildren { get; set; }
+
+        public int Adults { get; set; } = 0;
+        public int CheckedInAdults { get; set; } = 0;
+        public int Children { get; set; } = 0;
+        public int CheckedInChildren { get; set; } = 0;
+       
     }
 }
