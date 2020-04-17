@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Morgenmadsbuffeten.Models;
 using System.Diagnostics;
@@ -33,10 +34,14 @@ namespace Morgenmadsbuffeten.Controllers
         {
             return View();
         }
+
+        [Authorize("IsReception")]
         public IActionResult ReceptionAddGuests()
         {
             return View();
         }
+
+        [Authorize("IsReception")]
         public IActionResult ReceptionOverview()
         {
             return View();
