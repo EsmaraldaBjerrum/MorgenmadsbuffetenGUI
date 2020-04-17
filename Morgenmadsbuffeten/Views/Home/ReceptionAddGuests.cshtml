@@ -1,41 +1,50 @@
-﻿
+﻿@model Morgenmadsbuffeten.Models.BreakfastOrder
+
 @{
     ViewData["Title"] = "ReceptionAddGuests";
 }
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2"> </div>
-            <div class="col-md-6">
-                <header>
-                    <h1>Add Guests</h1>
-                </header>
-            </div>
-            <div class="col-md-2"> </div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-2"> </div>
+        <div class="col-md-6">
+            <header>
+                <h1>Add Guests</h1>
+            </header>
         </div>
-        <br />
-        <div class="row">
-            <div class="col-md-2">
-                <nav>
-                    <ul>
-                        <li><a href="/Home/ReceptionOverview">Overview</a></li>
-                        <li><a href="/Home/ReceptionAddGuests">Add Guests</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-6">
-                <p>Chose a date: </p>
-                <input type="date" id="date" name="date" />
+        <div class="col-md-2"> </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <nav>
+                <ul>
+                    <li><a href="/Home/ReceptionOverview">Overview</a></li>
+                    <li><a href="/Home/ReceptionAddGuests">Add Guests</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-6">
+            <form asp-action="ReceptionAddGuests">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" type="date" class="form-control" />
                 <br />
+                <label asp-for="RoomNumber" class="control-label">Room number</label>
+                <input asp-for="RoomNumber" class="form-control" />
                 <br />
-                <p>Number of eating guests: </p>
-                <input type="number" id="numberOfEatingGuests" value="number" />
+                <label asp-for="Adults" class="control-label">Adults</label>
+                <input asp-for="Adults" class="form-control" />
                 <br />
+                <label asp-for="Children" class="control-label">Children</label>
+                <input asp-for="Children" class="form-control" />
                 <br />
-                <button onclick="">Submit</button>
-            </div>
-            <div class="col-md-2">
-            </div>
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </form>
+        </div>
+        <div class="col-md-2">
         </div>
     </div>
+</div>
+
 

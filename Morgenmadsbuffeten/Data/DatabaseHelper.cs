@@ -13,22 +13,22 @@ namespace Morgenmadsbuffeten.Data
         public void CreateReceptionUser(UserManager<IdentityUser> userManager)
         {
 
-            const string receptionEmail = "reception@hotel.com";
-            const string password = "password123";
+            const string receptionEmail = "reception4@hotel.com";
+            const string password = "Password-123";
 
             if (userManager.FindByNameAsync(receptionEmail).Result == null)
             {
                 var user = new IdentityUser
                 {
                     UserName = receptionEmail,
-                    Email = receptionEmail
+                    Email = receptionEmail,
                 };
                 IdentityResult result = userManager.CreateAsync
                     (user, password).Result;
                 if (result.Succeeded)
                 {
-                    var adminClaim = new Claim("Admin", "Yes");
-                    userManager.AddClaimAsync(user, adminClaim);
+                    var claim = new Claim("Reception", "Yes");
+                    userManager.AddClaimAsync(user, claim);
                 }
             }
         }

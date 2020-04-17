@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Morgenmadsbuffeten.Data;
 using Morgenmadsbuffeten.Models;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Morgenmadsbuffeten.Controllers
 {
@@ -10,9 +13,13 @@ namespace Morgenmadsbuffeten.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _db;
+
+
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         public IActionResult HomePage()
@@ -42,9 +49,9 @@ namespace Morgenmadsbuffeten.Controllers
         }
 
         [Authorize("IsReception")]
-        public IActionResult ReceptionOverview()
+        public async Task<IActionResult> ReceptionOverview()
         {
-            return View();
+            return View(await _db.BreakfastOrders.ToListAsync());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
