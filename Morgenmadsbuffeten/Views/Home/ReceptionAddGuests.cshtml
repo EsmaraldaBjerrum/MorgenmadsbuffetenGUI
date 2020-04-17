@@ -4,47 +4,48 @@
     ViewData["Title"] = "ReceptionAddGuests";
 }
 
-<div class="container">
+    <div class="container">
+        <header>
+            <h1>Add Guests</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-3">
+                <nav>
+                    <a href="/Home/ReceptionOverview">Overview</a>
+                    <br />
+                    <br />
+                    <a href="/Home/ReceptionAddGuests">Add Guests</a>
+                </nav>
+            </div>
+            <div class="col-md-6">
+                <form asp-action="ReceptionAddGuests">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input asp-for="Date" type="date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                    <br />
+                    <label asp-for="RoomNumber" class="control-label">Room number</label>
+                    <input asp-for="RoomNumber" class="form-control" />
+                    <span asp-validation-for="RoomNumber" class="text-danger"></span>
+                    <br />
+                    <label asp-for="Adults" class="control-label">Adults</label>
+                    <input asp-for="Adults" class="form-control" value="0" />
+                    <span asp-validation-for="Adults" class="text-danger"></span>
+                    <br />
+                    <label asp-for="Children" class="control-label">Children</label>
+                    <input asp-for="Children" class="form-control" value="0" />
+                    <span asp-validation-for="Adults" class="text-danger"></span>
+                    <br />
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </form>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    </div>
 
-    <div class="row">
-        <div class="col-md-2"> </div>
-        <div class="col-md-6">
-            <header>
-                <h1>Add Guests</h1>
-            </header>
-        </div>
-        <div class="col-md-2"> </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-2">
-            <nav>
-                <ul>
-                    <li><a href="/Home/ReceptionOverview">Overview</a></li>
-                    <li><a href="/Home/ReceptionAddGuests">Add Guests</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="col-md-6">
-            <form asp-action="ReceptionAddGuests">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" type="date" class="form-control" />
-                <br />
-                <label asp-for="RoomNumber" class="control-label">Room number</label>
-                <input asp-for="RoomNumber" class="form-control" />
-                <br />
-                <label asp-for="Adults" class="control-label">Adults</label>
-                <input asp-for="Adults" class="form-control" />
-                <br />
-                <label asp-for="Children" class="control-label">Children</label>
-                <input asp-for="Children" class="form-control" />
-                <br />
-                <input type="submit" value="Submit" class="btn btn-primary" />
-            </form>
-        </div>
-        <div class="col-md-2">
-        </div>
-    </div>
-</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
 
