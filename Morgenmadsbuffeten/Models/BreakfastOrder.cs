@@ -14,7 +14,6 @@ namespace Morgenmadsbuffeten.Models
         public long RoomNumber { get; set; }
         [Required]
         public DateTime Date { get; set; }
-
         public int Adults { get; set; } = 0;
         public int CheckedInAdults { get; set; } = 0;
         public int Children { get; set; } = 0;
