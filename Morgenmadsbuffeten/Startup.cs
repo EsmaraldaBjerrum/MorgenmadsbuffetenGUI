@@ -59,6 +59,7 @@ namespace Morgenmadsbuffeten
                    name: "default",
                    pattern: "{controller=Home}/{action=HomePage}/{id?}");
             endpoints.MapRazorPages();
+
          });
       }
    }

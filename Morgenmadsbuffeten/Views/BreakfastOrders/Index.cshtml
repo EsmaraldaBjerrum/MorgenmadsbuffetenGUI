@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Morgenmadsbuffeten.Models.BreakfastOrder>
+
+@{
+    ViewData["Title"] = "Kitchen";
+}
+
+<br />
+<h1>Kitchen</h1>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adults)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckedInAdults)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Children)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckedInChildren)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adults)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckedInAdults)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Children)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckedInChildren)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.BreakfastOrderId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Date">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.BreakfastOrderId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
