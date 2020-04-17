@@ -48,7 +48,7 @@ namespace Morgenmadsbuffeten.Controllers
             return View();
         }
 
-        //[Authorize("IsReception")]
+        [Authorize("IsReception")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ReceptionAddGuests([Bind("RoomNumber,Date,Adults,CheckedInAdults,Children,CheckedInChildren")] BreakfastOrder breakfastOrder)
@@ -62,7 +62,7 @@ namespace Morgenmadsbuffeten.Controllers
             return View(breakfastOrder);
         }
 
-        //[Authorize("IsReception")]
+        [Authorize("IsReception")]
         public async Task<IActionResult> ReceptionOverview()
         {
             return View(await _db.BreakfastOrders.ToListAsync());
