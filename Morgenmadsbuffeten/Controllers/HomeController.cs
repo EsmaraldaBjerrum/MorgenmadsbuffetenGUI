@@ -70,7 +70,7 @@ namespace Morgenmadsbuffeten.Controllers
             return View(kitchenModel);
         }
 
-        //[Authorize("IsRestaurant")]
+        [Authorize("IsRestaurant")]
         public async Task<IActionResult> RestaurantPage(long? id)
         {
             if (id == null)
