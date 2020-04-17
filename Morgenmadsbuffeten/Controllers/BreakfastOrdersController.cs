@@ -8,60 +8,62 @@ using System.Threading.Tasks;
 
 namespace Morgenmadsbuffeten.Controllers
 {
-   public class BreakfastOrdersController : Controller
-   {
-      private readonly ApplicationDbContext _context;
+    public class BreakfastOrdersController : Controller
+    {
+        private readonly ApplicationDbContext _context;
 
-      public BreakfastOrdersController(ApplicationDbContext context)
-      {
-         _context = context;
-      }
+        public BreakfastOrdersController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-      // GET: BreakfastOrders
-      public async Task<IActionResult> Index()
-      {
-         return View(await _context.BreakfastOrders.ToListAsync());
-      }
+        // GET: BreakfastOrders
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.BreakfastOrders.ToListAsync());
+        }
 
-      // GET: BreakfastOrders/Details/5
-      public async Task<IActionResult> Details(string id)
-      {
-         DateTime date = Convert.ToDateTime(id);
-         var breakfastOrders = await _context.BreakfastOrders.Where(m => m.Date.Date == date.Date).ToListAsync();
-         if (breakfastOrders == null)
-         {
-            return NotFound();
-         }
+        // GET: BreakfastOrders/Details/5
+        public async Task<IActionResult> Details(string id)
+        {
+            DateTime date = Convert.ToDateTime(id);
+            var breakfastOrders = await _context.BreakfastOrders.Where(m => m.Date.Date == date.Date).ToListAsync();
+            if (breakfastOrders == null)
+            {
+                return NotFound();
+            }
 
-         var totalAdultsForChosenDate = 0;
-         var totalChildrenForChosenDate = 0;
-         var totalAdultsCheckedIn = 0;
-         var totalChildrenCheckedIn = 0;
+            var totalAdultsForChosenDate = 0;
+            var totalChildrenForChosenDate = 0;
+            var totalAdultsCheckedIn = 0;
+            var totalChildrenCheckedIn = 0;
 
-         foreach (var breakfeastOrder in breakfastOrders)
-         {
-            totalAdultsForChosenDate += breakfeastOrder.Adults;
-            totalChildrenForChosenDate += breakfeastOrder.Children;
-            totalAdultsCheckedIn += breakfeastOrder.CheckedInAdults;
-            totalChildrenCheckedIn += breakfeastOrder.CheckedInChildren;
-         }
+            foreach (var breakfeastOrder in breakfastOrders)
+            {
+                totalAdultsForChosenDate += breakfeastOrder.Adults;
+                totalChildrenForChosenDate += breakfeastOrder.Children;
+                totalAdultsCheckedIn += breakfeastOrder.CheckedInAdults;
+                totalChildrenCheckedIn += breakfeastOrder.CheckedInChildren;
+            }
 
-         var kitchenModel = new KitchenModel
-         {
-            TotalAdultsCheckedIn = totalAdultsCheckedIn,
-            TotalAdultsForChosenDate = totalAdultsForChosenDate,
-            TotalChildrenCheckedIn = totalChildrenCheckedIn,
-            TotalChildrenForChosenDate = totalChildrenForChosenDate,
-            TotalForChosenDate = totalChildrenForChosenDate + totalAdultsForChosenDate,
-            NotCheckedInAdults = totalAdultsForChosenDate - totalAdultsCheckedIn,
-            NotCheckedInChildren = totalChildrenForChosenDate - totalChildrenCheckedIn,
-            NotCheckedInTotal = (totalAdultsForChosenDate - totalAdultsCheckedIn) +
-                                (totalChildrenForChosenDate - totalChildrenCheckedIn),
-            ChosenDate = date.ToString("yyyy-MM-dd")
-         };
+            var kitchenModel = new KitchenModel
+            {
+                TotalAdultsCheckedIn = totalAdultsCheckedIn,
+                TotalAdultsForChosenDate = totalAdultsForChosenDate,
+                TotalChildrenCheckedIn = totalChildrenCheckedIn,
+                TotalChildrenForChosenDate = totalChildrenForChosenDate,
+                TotalForChosenDate = totalChildrenForChosenDate + totalAdultsForChosenDate,
+                NotCheckedInAdults = totalAdultsForChosenDate - totalAdultsCheckedIn,
+                NotCheckedInChildren = totalChildrenForChosenDate - totalChildrenCheckedIn,
+                NotCheckedInTotal = (totalAdultsForChosenDate - totalAdultsCheckedIn) +
+                                   (totalChildrenForChosenDate - totalChildrenCheckedIn),
+                ChosenDate = date.ToString("yyyy-MM-dd")
+            };
 
-         return View(kitchenModel);
-      }
+            return View(kitchenModel);
+        }
+    }
+}
 
       // GET: BreakfastOrders/Create
       //public IActionResult Create()

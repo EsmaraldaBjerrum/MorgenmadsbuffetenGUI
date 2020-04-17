@@ -13,7 +13,7 @@ namespace Morgenmadsbuffeten.Data
         public void CreateReceptionUser(UserManager<IdentityUser> userManager)
         {
 
-            const string receptionEmail = "reception4@hotel.com";
+            const string receptionEmail = "reception10@hotel.com";
             const string password = "Password-123";
 
             if (userManager.FindByNameAsync(receptionEmail).Result == null)
