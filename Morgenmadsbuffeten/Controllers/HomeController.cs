@@ -17,7 +17,6 @@ namespace Morgenmadsbuffeten.Controllers
 
         private readonly ApplicationDbContext _db;
 
-
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _logger = logger;
@@ -34,32 +33,47 @@ namespace Morgenmadsbuffeten.Controllers
             return View();
         }
 
-        public IActionResult RestaurantPage([Bind("RoomNumber,CheckedInAdults,CheckedInChildren")] BreakfastOrder breakfastOrder)
+        // GET: BreakfastOrders/Edit/5
+        public async Task<IActionResult> RestaurantPage(long? id)
+        {
+            if (id == null)
+            {
+                return View(new CheckInBreakfastGuests());
+            }
+
+            var breakfastOrder = await _db.BreakfastOrders.FindAsync(id);
+            if (breakfastOrder == null)
+            {
+                return NotFound();
+            }
+            return View(breakfastOrder);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestaurantPage([Bind("RoomNumber,CheckedInAdults,CheckedInChildren")] CheckInBreakfastGuests checkInGuests)
         {
             BreakfastOrder OGBreakfastOrder;
 
             try
             {
-                OGBreakfastOrder = _db.BreakfastOrders.First(x => x.RoomNumber == breakfastOrder.RoomNumber && x.Date == DateTime.Now);
+                OGBreakfastOrder = _db.BreakfastOrders.First(x => x.RoomNumber == checkInGuests.RoomNumber && x.Date == DateTime.Now);
             }
             catch
             {
-                return NotFound();
+                return RedirectToAction(nameof(HomeController.HomePage));
+                //return NotFound();
             }
-            //if (RoomNumber != breakfastOrder.RoomNumber)
-            //{
-            //    return NotFound();
-            //}
 
-            OGBreakfastOrder.CheckedInAdults = breakfastOrder.CheckedInAdults;
-            OGBreakfastOrder.CheckedInChildren = breakfastOrder.CheckedInChildren;
+            OGBreakfastOrder.CheckedInAdults = checkInGuests.CheckedInAdults;
+            OGBreakfastOrder.CheckedInChildren = checkInGuests.CheckedInChildren;
 
             if (ModelState.IsValid)
             {
                 try
                 {
                     _db.Update(OGBreakfastOrder);
-                    _db.SaveChangesAsync();
+                    await _db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -75,7 +89,7 @@ namespace Morgenmadsbuffeten.Controllers
                 }
                 return RedirectToAction(nameof(HomeController.HomePage));
             }
-            return View(breakfastOrder);
+            return View(checkInGuests);
         }
 
         public IActionResult Privacy()
