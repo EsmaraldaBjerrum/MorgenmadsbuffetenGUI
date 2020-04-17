@@ -33,9 +33,9 @@ namespace Morgenmadsbuffeten.Data
                 if (result.Succeeded)
                 {
                     var claim = new Claim("Reception", "Yes");
-                    userManager.AddClaimAsync(user, claim);
+                    userManager.AddClaimAsync(user, claim).Wait();
                     string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                    userManager.ConfirmEmailAsync(user, token);
+                    userManager.ConfirmEmailAsync(user, token).Wait();
 
                 }
             }
@@ -43,7 +43,6 @@ namespace Morgenmadsbuffeten.Data
 
         public async void CreateRestaurantUser(UserManager<IdentityUser> userManager)
         {
-
             const string restaurantEmail = "Restaurant@OurHotel.com";
             const string password = "Password-123";
 
@@ -60,10 +59,9 @@ namespace Morgenmadsbuffeten.Data
                 if (result.Succeeded)
                 {
                     var claim = new Claim("Restaurant", "Yes");
-                    userManager.AddClaimAsync(user, claim);
+                    userManager.AddClaimAsync(user, claim).Wait();
                     string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                    userManager.ConfirmEmailAsync(user, token);
-
+                    userManager.ConfirmEmailAsync(user, token).Wait();
                 }
             }
         }
