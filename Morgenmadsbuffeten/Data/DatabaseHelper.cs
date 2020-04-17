@@ -44,15 +44,15 @@ namespace Morgenmadsbuffeten.Data
         public async void CreateRestaurantUser(UserManager<IdentityUser> userManager)
         {
 
-            const string receptionEmail = "Restaurant@OurHotel.com";
+            const string restaurantEmail = "Restaurant@OurHotel.com";
             const string password = "Password-123";
 
-            if (userManager.FindByNameAsync(receptionEmail).Result == null)
+            if (userManager.FindByNameAsync(restaurantEmail).Result == null)
             {
                 var user = new IdentityUser
                 {
-                    UserName = receptionEmail,
-                    Email = receptionEmail
+                    UserName = restaurantEmail,
+                    Email = restaurantEmail
 
                 };
                 IdentityResult result = userManager.CreateAsync
