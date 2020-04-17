@@ -83,13 +83,27 @@ namespace Morgenmadsbuffeten.Controllers
             return View();
         }
 
-        [Authorize("IsReception")]
+
         public IActionResult ReceptionAddGuests()
         {
             return View();
         }
 
-        [Authorize("IsReception")]
+        //[Authorize("IsReception")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReceptionAddGuests([Bind("RoomNumber,Date,Adults,CheckedInAdults,Children,CheckedInChildren")] BreakfastOrder breakfastOrder)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Add(breakfastOrder);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(ReceptionAddGuests));
+            }
+            return View(breakfastOrder);
+        }
+
+        //[Authorize("IsReception")]
         public async Task<IActionResult> ReceptionOverview()
         {
             return View(await _db.BreakfastOrders.ToListAsync());
