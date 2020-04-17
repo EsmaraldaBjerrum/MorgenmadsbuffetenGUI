@@ -70,7 +70,7 @@ namespace Morgenmadsbuffeten.Controllers
             return View(kitchenModel);
         }
 
-        [Authorize("IsRestaurant")]
+        //[Authorize("IsRestaurant")]
         public async Task<IActionResult> RestaurantPage(long? id)
         {
             if (id == null)
@@ -94,12 +94,12 @@ namespace Morgenmadsbuffeten.Controllers
 
             try
             {
-                OGBreakfastOrder = _db.BreakfastOrders.Where(x => x.RoomNumber == checkInGuests.RoomNumber && x.Date == DateTime.Now.Date).FirstOrDefault();
+                OGBreakfastOrder = await _db.BreakfastOrders.Where(x => x.RoomNumber == checkInGuests.RoomNumber && x.Date == DateTime.Now.Date).FirstAsync();
             }
             catch
             {
-                //return RedirectToAction(nameof(HomeController.HomePage));
-                return NotFound();
+                ModelState.AddModelError("RoomNumber", "No guests in this room");
+                return View(checkInGuests);
             }
 
             OGBreakfastOrder.CheckedInAdults = checkInGuests.CheckedInAdults;
