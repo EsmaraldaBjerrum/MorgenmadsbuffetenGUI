@@ -16,6 +16,7 @@ a {
     color: #fff;
     background-color: cornflowerblue;
     border-color: cornflowerblue;
+    width: auto;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {

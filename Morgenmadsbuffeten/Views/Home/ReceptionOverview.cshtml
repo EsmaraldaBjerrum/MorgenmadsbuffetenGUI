@@ -3,50 +3,59 @@
     ViewData["Title"] = "Reception Overview";
 }
 
-    <div class="container">
-        <header >
-            <h1>Overview</h1>
-        </header>
-        <div class="row">
-            <div class="col-md-2">
-                <nav>
-                    <ul>
-                        <li><a href="/Home/ReceptionOverview">Overview</a></li>
-                        <li><a href="/Home/ReceptionAddGuests">Add Guests</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-6" >
-                <div>
-                    <table>
+<div class="container">
+    <header >
+        <h1>Overview</h1>
+    </header>
+    <div class="row">
+        <div class="col-md-2">
+            <nav>
+                <ul>
+                    <li><a href="/Home/ReceptionOverview">Overview</a></li>
+                    <li><a href="/Home/ReceptionAddGuests">Add Guests</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-6" >
+            <div>
+                <table>
 
-                        <tr>
-                            <th width="100">Room</th>
-                            <th width="100">Adults</th>
-                            <th width="100">Children</th>
-                        </tr>
-                        @foreach (var item in Model)
+                    <tr>
+                        <th width="100">Room</th>
+                        <th width="100">Adults</th>
+                        <th width="100">Children</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        @if (item.Date == DateTime.Now.Date)
                         {
-                            @if (item.Date == DateTime.Now.Date)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(model => item.RoomNumber)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(model => item.Adults)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(model => item.Children)
-                                    </td>
-                                </tr>
-                            }
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => item.RoomNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.Adults)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.Children)
+                                </td>
+                            </tr>
                         }
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <p>@DateTime.Now.Date.ToShortDateString()</p>
+                    }
+                </table>
             </div>
         </div>
+        <div class="col-md-2">
+            <p>@DateTime.Now.Date.ToShortDateString()</p>
+        </div>
     </div>
+
+    <div>
+        <br/>
+        <br/>
+        <a class="btn btn-primary" asp-action="HomePage">Back to home page</a>
+    </div>
+
+</div>
+
+
