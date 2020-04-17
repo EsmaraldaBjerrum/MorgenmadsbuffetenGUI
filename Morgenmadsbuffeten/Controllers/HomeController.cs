@@ -87,6 +87,7 @@ namespace Morgenmadsbuffeten.Controllers
         }
 
         [HttpPost]
+        [Authorize("IsRestaurant")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestaurantPage([Bind("RoomNumber,CheckedInAdults,CheckedInChildren")] CheckInBreakfastGuests checkInGuests)
         {
