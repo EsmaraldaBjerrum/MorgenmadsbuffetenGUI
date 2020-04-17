@@ -38,11 +38,12 @@
 <div class="container">
 <div class="row">
     <div class="col-md-4">
+
         <h2>Kitchen</h2>
         <p>
             <br/>
             <br/>
-            <a asp-controller="Home" asp-action="KitchenPage">Go to kitchen page</a>
+            <a asp-controller="BreakfastOrders" asp-action="Details" asp-route-id="@DateTime.Now.ToString("dd-MM-yyyy")">Go to kitchen page</a>
         </p>
     </div>
 
@@ -57,7 +58,7 @@
     <div class="col-md-4">
         <h2>Restaurant</h2>
         <p>
-            <a asp-controller="Home" asp-action="RestaurantPAge">Go to restaurant page</a>
+            <a asp-controller="Home" asp-action="RestaurantPage">Go to restaurant page</a>
         </p>
     </div>
 </div>

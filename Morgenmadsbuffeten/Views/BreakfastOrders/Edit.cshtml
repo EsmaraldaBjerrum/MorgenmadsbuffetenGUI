@@ -1,26 +1,42 @@
 ﻿@model Morgenmadsbuffeten.Models.BreakfastOrder
 
 @{
-    ViewData["Title"] = "RestaurantPage";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Restaurant</h1>
+<h1>Edit</h1>
 
-<h4>Check in breakfast orders</h4>
+<h4>BreakfastOrder</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="RestaurantPage">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BreakfastOrderId" />
             <div class="form-group">
                 <label asp-for="RoomNumber" class="control-label"></label>
                 <input asp-for="RoomNumber" class="form-control" />
                 <span asp-validation-for="RoomNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adults" class="control-label"></label>
+                <input asp-for="Adults" class="form-control" />
+                <span asp-validation-for="Adults" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="CheckedInAdults" class="control-label"></label>
                 <input asp-for="CheckedInAdults" class="form-control" />
                 <span asp-validation-for="CheckedInAdults" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Children" class="control-label"></label>
+                <input asp-for="Children" class="form-control" />
+                <span asp-validation-for="Children" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CheckedInChildren" class="control-label"></label>
@@ -35,7 +51,7 @@
 </div>
 
 <div>
-    <a asp-action="HomePage">Back to home page</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

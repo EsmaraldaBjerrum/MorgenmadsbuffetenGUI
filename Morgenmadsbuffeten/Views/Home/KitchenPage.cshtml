@@ -1,11 +1,13 @@
-﻿
+﻿@using Microsoft.CodeAnalysis
+@model Morgenmadsbuffeten.Models.BreakfastOrder
+
 @{
     ViewData["Title"] = "Kitchen";
 }
 
-<br/>
+<br />
 <h1>Kitchen</h1>
-<br/>
+<br />
 
 <div class="container">
     <div class="row">
@@ -16,7 +18,14 @@
             <input type="date" id="date" name="date" />
         </div>
         <div class="col-md-4">
-            <button onclick="window.location.reload();" class="btn btn-primary">Update</button>
+            <button onclick="getDataForChosenDate()" class="btn btn-primary">Get information for choosen date</button>
+            <script>
+                function getDataForChosenDate() {
+
+                    chosendate = document.getElementById("date").value();
+                }
+            </script>
+
         </div>
     </div>
 
@@ -34,16 +43,23 @@
                     <th>Counts</th>
                 </tr>
                 <tr>
-                    <td><strong>Adults</strong></td>
-                    <td>Her skal antal stå</td>
+                    <td><strong> @Html.DisplayNameFor(model => model.Adults)</strong></td>
+                    <td>
+
+                        @Html.DisplayForModel(Model.Adults);
+                    </td>
                 </tr>
                 <tr>
-                    <td><strong>Children</strong></td>
-                    <td>Her skal antal stå</td>
+                    <td><strong>@Html.DisplayNameFor(model => model.Children)</strong></td>
+                    <td>
+                        @Html.DisplayForModel(Model.Children);
+                    </td>
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td>Her skal antal stå</td>
+                    <td>
+                        Her skal total stå
+                    </td>
                 </tr>
             </table>
         </div>
@@ -54,10 +70,10 @@
 
     <div class="row">
         <div class="col-md-6">
-            <p>Checked in children: </p>
+            @Html.DisplayNameFor(model => model.CheckedInChildren)
         </div>
         <div class="col-md-6">
-            <input type="number" id="checkedInChildren" value="Her skal antal stå" readonly />
+            <input type="number" id="checkedInChildren" value=" Her skal checked in stå" readonly />
         </div>
     </div>
 
@@ -65,16 +81,16 @@
 
     <div class="row">
         <div class="col-md-6">
-            <p>Checked in adults: </p>
+            <p>@Html.DisplayNameFor(model => model.CheckedInAdults)</p>
         </div>
         <div class="col-md-6">
-            <input type="number" id="checkedInAdults" value="Her skal antal stå" readonly />
+            <input type="number" id="checkedInAdults" value=" her skal checked in stå" readonly />
         </div>
     </div>
-    
-    <br/>
-    <br/>
-    
+
+    <br />
+    <br />
+
     <div class="row">
         <div class="col-md-6">
             <p>Not checked in guests yet </p>
@@ -102,4 +118,5 @@
     </div>
 
 </div>
+
 
