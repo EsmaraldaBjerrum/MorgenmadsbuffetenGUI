@@ -9,7 +9,7 @@ namespace Morgenmadsbuffeten.Models
     public class BreakfastOrder
     {
         [Required]        
-        public string BreakfastOrderId {get { return BreakfastOrderId; } set { BreakfastOrderId = Date.Date.ToOADate().ToString() + RoomNumber; } }
+        public long BreakfastOrderId { get; set; }
         [Required]
         public long RoomNumber { get; set; }
         [Required]

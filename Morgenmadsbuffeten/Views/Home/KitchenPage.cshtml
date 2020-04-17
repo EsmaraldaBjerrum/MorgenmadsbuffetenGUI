@@ -1,31 +1,29 @@
-﻿@using Microsoft.CodeAnalysis
-@model Morgenmadsbuffeten.Models.BreakfastOrder
+﻿@model KitchenModel
 
 @{
     ViewData["Title"] = "Kitchen";
 }
-
-<br />
-<h1>Kitchen</h1>
-<br />
+<br/>
+<h3>@ViewData["Title"]</h3>
+<br/>
 
 <div class="container">
     <div class="row">
         <div class="col-md-1">
-            <p>Date: </p>
+            <p><strong>Date:</strong> </p>
         </div>
-        <div class="col-md-7">
-            <input type="date" id="date" name="date" />
+        <div class="col-md-5">
+            <input type="date" id="date" name="date" value="@Model.ChosenDate" />
         </div>
-        <div class="col-md-4">
-            <button onclick="getDataForChosenDate()" class="btn btn-primary">Get information for choosen date</button>
-            <script>
-                function getDataForChosenDate() {
-
-                    chosendate = document.getElementById("date").value();
+        <div class="col-md-6">
+             <button onclick="Update()" class="btn btn-primary">Get information for choosen date</button>
+            <script type="text/javascript">
+                function Update() {
+                    var date = document.getElementById("date").value;
+                    var url = date;
+                    window.location.href = url;
                 }
             </script>
-
         </div>
     </div>
 
@@ -34,89 +32,87 @@
 
     <div class="row">
         <div class="col-md-6">
-            <p>Expected number of guests: </p>
+            <p><strong>Expected number of guests:</strong></p>
         </div>
         <div class="col-md-6">
-            <table border="1">
-                <tr>
-                    <th></th>
-                    <th>Counts</th>
-                </tr>
-                <tr>
-                    <td><strong> @Html.DisplayNameFor(model => model.Adults)</strong></td>
-                    <td>
-
-                        @Html.DisplayForModel(Model.Adults);
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>@Html.DisplayNameFor(model => model.Children)</strong></td>
-                    <td>
-                        @Html.DisplayForModel(Model.Children);
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>Total</strong></td>
-                    <td>
-                        Her skal total stå
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <br />
-    <br />
-
-    <div class="row">
-        <div class="col-md-6">
-            @Html.DisplayNameFor(model => model.CheckedInChildren)
-        </div>
-        <div class="col-md-6">
-            <input type="number" id="checkedInChildren" value=" Her skal checked in stå" readonly />
-        </div>
-    </div>
-
-    <br />
-
-    <div class="row">
-        <div class="col-md-6">
-            <p>@Html.DisplayNameFor(model => model.CheckedInAdults)</p>
-        </div>
-        <div class="col-md-6">
-            <input type="number" id="checkedInAdults" value=" her skal checked in stå" readonly />
-        </div>
-    </div>
-
-    <br />
-    <br />
-
-    <div class="row">
-        <div class="col-md-6">
-            <p>Not checked in guests yet </p>
-        </div>
-        <div class="col-md-6">
-            <table border="1">
+            <table>
                 <tr>
                     <th></th>
                     <th>Counts</th>
                 </tr>
                 <tr>
                     <td><strong>Adults</strong></td>
-                    <td>Her skal antal stå</td>
+                    <td>
+                        @Html.DisplayFor(model => model.TotalAdultsForChosenDate)
+                    </td>
                 </tr>
                 <tr>
                     <td><strong>Children</strong></td>
-                    <td>Her skal antal stå</td>
+                    <td>
+                        @Html.DisplayFor(model => model.TotalChildrenForChosenDate)
+                    </td>
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td>Her skal antal stå</td>
+                    <td>
+                        @Html.DisplayFor(model => model.TotalForChosenDate)
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
 
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-6">
+            <strong>@Html.LabelFor(model => model.TotalAdultsCheckedIn):</strong>
+        </div>
+            <div class="col-md-6">
+                <input type="number" id="checkedInChildren" value="@Html.DisplayFor(model => model.TotalAdultsCheckedIn)" readonly style="width: 4.5em" />
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-6">
+            <strong>@Html.LabelFor(model => model.TotalChildrenCheckedIn):</strong>
+        </div>
+        <div class="col-md-6">
+            <input type="number" id="checkedInAdults" value="@Html.DisplayFor(model => model.TotalChildrenCheckedIn)" readonly style="width: 4.5em"  />
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Not checked in guests yet:</strong> </p>
+        </div>
+        <div class="col-md-6">
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Counts</th>
+                </tr>
+                <tr>
+                    <td><strong>Adults</strong></td>
+                    <td>@Html.DisplayFor(model => model.NotCheckedInAdults)</td>
+                </tr>
+                <tr>
+                    <td><strong>Children</strong></td>
+                    <td>@Html.DisplayFor(model => model.NotCheckedInChildren)</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td>@Html.DisplayFor(model => model.NotCheckedInTotal)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
 </div>
-
-
