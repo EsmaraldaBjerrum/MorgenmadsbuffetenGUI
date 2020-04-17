@@ -3,7 +3,7 @@
 }
 
 <style>
-    .button {
+    #button {
         width: 6em;
         border: 2px solid black;
         background: #ffe;
@@ -38,28 +38,23 @@
 <div class="container">
 <div class="row">
     <div class="col-md-4">
-
         <h2>Kitchen</h2>
         <p>
             <br/>
-            <br/>
-             <a asp-controller="Home" asp-action="KitchenPage" asp-route-id="@DateTime.Now.ToString("dd-MM-yyyy")">Go to kitchen page</a>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="KitchenPage" asp-route-id="@DateTime.Now.ToString("dd-MM-yyyy")">Go to kitchen page</a>
         </p>
     </div>
 
     <div class="col-md-4">
         <h2>Reception</h2>
-        <p>
-            You need to log-in before you kan enter the reception page
-            <a asp-controller="Home" asp-action="ReceptionOverview">Go to log-in page</a>
-        </p>
+        <br/>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="ReceptionOverview">Go to log-in page</a>
     </div>
         
     <div class="col-md-4">
         <h2>Restaurant</h2>
-        <p>
-            <a asp-controller="Home" asp-action="RestaurantPage">Go to restaurant page</a>
-        </p>
+        <br />
+        <a class="btn btn-primary" asp-controller="Home" asp-action="RestaurantPage">Go to restaurant page</a>
     </div>
 </div>
 </div>
