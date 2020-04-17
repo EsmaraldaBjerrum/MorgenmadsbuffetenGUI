@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Morgenmadsbuffeten.Data;
 using Morgenmadsbuffeten.Models;
+using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Morgenmadsbuffeten.Controllers
@@ -32,9 +34,48 @@ namespace Morgenmadsbuffeten.Controllers
             return View();
         }
 
-        public IActionResult RestaurantPage()
+        public IActionResult RestaurantPage([Bind("RoomNumber,CheckedInAdults,CheckedInChildren")] BreakfastOrder breakfastOrder)
         {
-            return View();
+            BreakfastOrder OGBreakfastOrder;
+
+            try
+            {
+                OGBreakfastOrder = _db.BreakfastOrders.First(x => x.RoomNumber == breakfastOrder.RoomNumber && x.Date == DateTime.Now);
+            }
+            catch
+            {
+                return NotFound();
+            }
+            //if (RoomNumber != breakfastOrder.RoomNumber)
+            //{
+            //    return NotFound();
+            //}
+
+            OGBreakfastOrder.CheckedInAdults = breakfastOrder.CheckedInAdults;
+            OGBreakfastOrder.CheckedInChildren = breakfastOrder.CheckedInChildren;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _db.Update(OGBreakfastOrder);
+                    _db.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    //if (!BreakfastOrderExists(breakfastOrder.BreakfastOrderId))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //    throw;
+                    //}
+                    throw;
+                }
+                return RedirectToAction(nameof(HomeController.HomePage));
+            }
+            return View(breakfastOrder);
         }
 
         public IActionResult Privacy()
