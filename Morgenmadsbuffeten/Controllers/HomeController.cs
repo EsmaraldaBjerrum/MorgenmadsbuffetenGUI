@@ -28,7 +28,8 @@ namespace Morgenmadsbuffeten.Controllers
          return View();
       }
 
-      public async Task<IActionResult> KitchenPage(string id)
+        
+        public async Task<IActionResult> KitchenPage(string id)
       {
          DateTime date = Convert.ToDateTime(id);
          var breakfastOrders = await _db.BreakfastOrders.Where(m => m.Date.Date == date.Date).ToListAsync();
@@ -68,6 +69,7 @@ namespace Morgenmadsbuffeten.Controllers
          return View(kitchenModel);
       }
 
+        [Authorize("IsRestaurant")]
         // GET: BreakfastOrders/Edit/5
         public async Task<IActionResult> RestaurantPage(long? id)
         {
@@ -132,7 +134,7 @@ namespace Morgenmadsbuffeten.Controllers
          return View();
       }
 
-
+        [Authorize("IsReception")]
         public IActionResult ReceptionAddGuests()
         {
             return View();

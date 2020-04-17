@@ -9,8 +9,12 @@ namespace Morgenmadsbuffeten.Data
 {
     public class DatabaseHelper
     {
-
-        public async void CreateReceptionUser(UserManager<IdentityUser> userManager)
+        public void CreateUsers(UserManager<IdentityUser> userManager)
+        {
+            CreateReceptionUser(userManager);
+            CreateRestaurantUser(userManager);
+        }
+        private async void CreateReceptionUser(UserManager<IdentityUser> userManager)
         {
 
             const string receptionEmail = "Reception@OurHotel.com";
@@ -29,6 +33,33 @@ namespace Morgenmadsbuffeten.Data
                 if (result.Succeeded)
                 {
                     var claim = new Claim("Reception", "Yes");
+                    userManager.AddClaimAsync(user, claim);
+                    string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    userManager.ConfirmEmailAsync(user, token);
+
+                }
+            }
+        }
+
+        public async void CreateRestaurantUser(UserManager<IdentityUser> userManager)
+        {
+
+            const string receptionEmail = "Restaurant@OurHotel.com";
+            const string password = "Password-123";
+
+            if (userManager.FindByNameAsync(receptionEmail).Result == null)
+            {
+                var user = new IdentityUser
+                {
+                    UserName = receptionEmail,
+                    Email = receptionEmail
+
+                };
+                IdentityResult result = userManager.CreateAsync
+                    (user, password).Result;
+                if (result.Succeeded)
+                {
+                    var claim = new Claim("Restaurant", "Yes");
                     userManager.AddClaimAsync(user, claim);
                     string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                     userManager.ConfirmEmailAsync(user, token);

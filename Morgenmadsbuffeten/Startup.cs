@@ -35,7 +35,15 @@ namespace Morgenmadsbuffeten
                     .RequireClaim("Reception"));
         });
 
-        services.AddControllersWithViews();
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy(
+                "IsRestaurant",
+                policyBuilder => policyBuilder
+                    .RequireClaim("Restaurant"));
+        });
+
+            services.AddControllersWithViews();
         services.AddRazorPages();
 
         }
@@ -75,7 +83,7 @@ namespace Morgenmadsbuffeten
 
 
             DatabaseHelper dbHelper = new DatabaseHelper();
-            dbHelper.CreateReceptionUser(userManager);
+            dbHelper.CreateUsers(userManager);
 
         }
    }
