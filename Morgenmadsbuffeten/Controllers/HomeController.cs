@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Morgenmadsbuffeten.Data;
 using Morgenmadsbuffeten.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +29,8 @@ namespace Morgenmadsbuffeten.Controllers
          return View();
       }
 
-      public async Task<IActionResult> KitchenPage(string id)
+        
+        public async Task<IActionResult> KitchenPage(string id)
       {
          DateTime date = Convert.ToDateTime(id);
          var breakfastOrders = await _db.BreakfastOrders.Where(m => m.Date.Date == date.Date).ToListAsync();
@@ -68,6 +70,7 @@ namespace Morgenmadsbuffeten.Controllers
          return View(kitchenModel);
       }
 
+        [Authorize("IsRestaurant")]
         // GET: BreakfastOrders/Edit/5
         public async Task<IActionResult> RestaurantPage(long? id)
         {
@@ -89,15 +92,15 @@ namespace Morgenmadsbuffeten.Controllers
         public async Task<IActionResult> RestaurantPage([Bind("RoomNumber,CheckedInAdults,CheckedInChildren")] CheckInBreakfastGuests checkInGuests)
         {
             BreakfastOrder OGBreakfastOrder;
-
+            
             try
             {
-                OGBreakfastOrder = _db.BreakfastOrders.First(x => x.RoomNumber == checkInGuests.RoomNumber && x.Date == DateTime.Now);
+                OGBreakfastOrder = _db.BreakfastOrders.Where(x => x.RoomNumber == checkInGuests.RoomNumber && x.Date == DateTime.Now.Date).FirstOrDefault();
             }
             catch
             {
-                return RedirectToAction(nameof(HomeController.HomePage));
-                //return NotFound();
+                //return RedirectToAction(nameof(HomeController.HomePage));
+                return NotFound();
             }
 
             OGBreakfastOrder.CheckedInAdults = checkInGuests.CheckedInAdults;
@@ -112,14 +115,6 @@ namespace Morgenmadsbuffeten.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    //if (!BreakfastOrderExists(breakfastOrder.BreakfastOrderId))
-                    //{
-                    //    return NotFound();
-                    //}
-                    //else
-                    //{
-                    //    throw;
-                    //}
                     throw;
                 }
                 return RedirectToAction(nameof(HomeController.HomePage));
@@ -132,7 +127,7 @@ namespace Morgenmadsbuffeten.Controllers
          return View();
       }
 
-
+        [Authorize("IsReception")]
         public IActionResult ReceptionAddGuests()
         {
             return View();
