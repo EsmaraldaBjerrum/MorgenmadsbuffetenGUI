@@ -10,10 +10,10 @@ namespace Morgenmadsbuffeten.Data
     public class DatabaseHelper
     {
 
-        public void CreateReceptionUser(UserManager<IdentityUser> userManager)
+        public async void CreateReceptionUser(UserManager<IdentityUser> userManager)
         {
 
-            const string receptionEmail = "reception4@hotel.com";
+            const string receptionEmail = "Reception@OurHotel.com";
             const string password = "Password-123";
 
             if (userManager.FindByNameAsync(receptionEmail).Result == null)
@@ -21,7 +21,8 @@ namespace Morgenmadsbuffeten.Data
                 var user = new IdentityUser
                 {
                     UserName = receptionEmail,
-                    Email = receptionEmail,
+                    Email = receptionEmail
+      
                 };
                 IdentityResult result = userManager.CreateAsync
                     (user, password).Result;
@@ -29,6 +30,9 @@ namespace Morgenmadsbuffeten.Data
                 {
                     var claim = new Claim("Reception", "Yes");
                     userManager.AddClaimAsync(user, claim);
+                    string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    userManager.ConfirmEmailAsync(user, token);
+
                 }
             }
         }

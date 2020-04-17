@@ -17,12 +17,11 @@ namespace Morgenmadsbuffeten.Controllers
 
       private readonly ApplicationDbContext _db;
 
-
-      public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
-      {
-         _logger = logger;
-         _db = db;
-      }
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
+        {
+            _logger = logger;
+            _db = db;
+        }
 
       public IActionResult HomePage()
       {
@@ -69,27 +68,95 @@ namespace Morgenmadsbuffeten.Controllers
          return View(kitchenModel);
       }
 
-      public IActionResult RestaurantPage()
-      {
-         return View();
-      }
+        // GET: BreakfastOrders/Edit/5
+        public async Task<IActionResult> RestaurantPage(long? id)
+        {
+            if (id == null)
+            {
+                return View(new CheckInBreakfastGuests());
+            }
+
+            var breakfastOrder = await _db.BreakfastOrders.FindAsync(id);
+            if (breakfastOrder == null)
+            {
+                return NotFound();
+            }
+            return View(breakfastOrder);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestaurantPage([Bind("RoomNumber,CheckedInAdults,CheckedInChildren")] CheckInBreakfastGuests checkInGuests)
+        {
+            BreakfastOrder OGBreakfastOrder;
+
+            try
+            {
+                OGBreakfastOrder = _db.BreakfastOrders.First(x => x.RoomNumber == checkInGuests.RoomNumber && x.Date == DateTime.Now);
+            }
+            catch
+            {
+                return RedirectToAction(nameof(HomeController.HomePage));
+                //return NotFound();
+            }
+
+            OGBreakfastOrder.CheckedInAdults = checkInGuests.CheckedInAdults;
+            OGBreakfastOrder.CheckedInChildren = checkInGuests.CheckedInChildren;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _db.Update(OGBreakfastOrder);
+                    await _db.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    //if (!BreakfastOrderExists(breakfastOrder.BreakfastOrderId))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //    throw;
+                    //}
+                    throw;
+                }
+                return RedirectToAction(nameof(HomeController.HomePage));
+            }
+            return View(checkInGuests);
+        }
 
       public IActionResult Privacy()
       {
          return View();
       }
 
-      [Authorize("IsReception")]
-      public IActionResult ReceptionAddGuests()
-      {
-         return View();
-      }
 
-      [Authorize("IsReception")]
-      public async Task<IActionResult> ReceptionOverview()
-      {
-         return View(await _db.BreakfastOrders.ToListAsync());
-      }
+        public IActionResult ReceptionAddGuests()
+        {
+            return View();
+        }
+
+        [Authorize("IsReception")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReceptionAddGuests([Bind("RoomNumber,Date,Adults,CheckedInAdults,Children,CheckedInChildren")] BreakfastOrder breakfastOrder)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Add(breakfastOrder);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(ReceptionAddGuests));
+            }
+            return View(breakfastOrder);
+        }
+
+        [Authorize("IsReception")]
+        public async Task<IActionResult> ReceptionOverview()
+        {
+            return View(await _db.BreakfastOrders.ToListAsync());
+        }
 
       [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
       public IActionResult Error()

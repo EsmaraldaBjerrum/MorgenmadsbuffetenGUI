@@ -101,5 +101,43 @@ p {
     font-size: 100%
 }
 
+header {
+    background-color: cornflowerblue;
+    color: #000000;
+    text-align: center;
+    margin: 0;
+}
+
+nav {
+    text-align: center;
+    float: left;
+    width: 200px;
+    padding-top: 10px;
+    background-color: #81bdff;
+}
+    nav a {
+        text-decoration: none;
+        text-align: center;
+        padding-bottom: 15px;
+    }
+
+        nav a {
+            color: black;
+        }
+
+         nav a:visited {
+            color: black;
+         }
+
+        nav a:hover {
+            color: rebeccapurple;
+        }   
+
+nav {
+    display: block;
+}
+
+
+
 
 

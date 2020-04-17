@@ -9,7 +9,7 @@ namespace Morgenmadsbuffeten.Models
     public class BreakfastOrder
     {
         [Required]        
-        public long BreakfastOrderId { get; set; }
+        public long BreakfastOrderId { get; set; } 
         [Required]
         public long RoomNumber { get; set; }
         [Required]
