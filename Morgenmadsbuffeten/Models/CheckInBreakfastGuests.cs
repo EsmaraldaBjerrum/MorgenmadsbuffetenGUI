@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Morgenmadsbuffeten.Models
 {
-    public class CheckInBreakfastGuests
-    {
-        public long RoomNumber { get; set; }
-        public int CheckedInAdults { get; set; }
-        public int CheckedInChildren { get; set; }
-    }
+   public class CheckInBreakfastGuests
+   {
+      [Display(Name = "Room number")]
+      public long RoomNumber { get; set; }
+      [Display(Name = "Checked In Adults")]
+      public int CheckedInAdults { get; set; }
+      [Display(Name = "Checked In Children")]
+      public int CheckedInChildren { get; set; }
+   }
 }

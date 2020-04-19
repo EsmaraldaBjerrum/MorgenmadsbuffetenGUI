@@ -11,7 +11,7 @@
     </header>
     <div class="row">
         <div class="col-md-1">
-            <p><strong>Date:</strong> </p>
+            <p>Date:</p>
         </div>
         <div class="col-md-5">
             <input type="date" id="date" name="date" value="@Model.ChosenDate" />
@@ -33,7 +33,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <p><strong>Expected number of guests:</strong></p>
+            <p>Expected number of guests:</p>
         </div>
         <div class="col-md-6">
             <table>
@@ -68,7 +68,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <strong>@Html.LabelFor(model => model.TotalAdultsCheckedIn):</strong>
+            @Html.LabelFor(model => model.TotalAdultsCheckedIn):
         </div>
             <div class="col-md-6">
                 <input type="number" id="checkedInChildren" value="@Html.DisplayFor(model => model.TotalAdultsCheckedIn)" readonly style="width: 4.5em" />
@@ -79,7 +79,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <strong>@Html.LabelFor(model => model.TotalChildrenCheckedIn):</strong>
+           @Html.LabelFor(model => model.TotalChildrenCheckedIn):
         </div>
         <div class="col-md-6">
             <input type="number" id="checkedInAdults" value="@Html.DisplayFor(model => model.TotalChildrenCheckedIn)" readonly style="width: 4.5em"  />
@@ -91,7 +91,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <p><strong>Not checked in guests yet:</strong> </p>
+            <p>Not checked in guests yet:</p>
         </div>
         <div class="col-md-6">
             <table>
